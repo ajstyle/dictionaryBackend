@@ -72,33 +72,32 @@ router.route('/trip/:id')
 
     router.route('/createTrip').post( (req,res) => {
         const tripBody = req.body.trip ; 
-       // console.log  ('data======', new Date(flights.arrTime).getTime());
-        
-    //     trip.find({'flights.arrTime' : {$gte: new Date(tripBody.arrDate).toISOString() } , 
-    //     'flights.depTime' : {$lt: new Date(tripBody.depDate).toISOString()
-    //      }
-    //  } )
-
+        let resFlight ; 
+     
     trip.find( { }  )
         .exec((err,data)=>{ 
             if (err) {
                 return res.send(err);
             }
-            data.forEach( res => {
-              const flight  =  res.flights.filter( flight => {
-                  console.log('Arr' , flight.arrTime)
-                  console.log('Dep' , flight.depTime)
-                  console.log('frontArr' , tripBody.arrDate)
-                  console.log('frontDep' , tripBody.depDate)
-               console.log ( (new Date(flight.arrTime).getTime()> new Date(tripBody.arrDate).getTime())) ; 
-               console.log ( (new Date(flight.depTime).getTime()< new Date(tripBody.depDate).getTime())) ; 
+            data.forEach( response => {
+               let flightDetail  =  response.flights.filter( flight => {
+            //       console.log('Arr' , flight.arrTime)
+            //       console.log('frontArr' , tripBody.arrDate)
+            //       console.log('Dep' , flight.depTime)
+            //       console.log('frontDep' , tripBody.depDate)
+            //    console.log ( (new Date(flight.arrTime).getTime()< new Date(tripBody.arrDate).getTime())) ; 
+            //    console.log ( (new Date(flight.depTime).getTime()> new Date(tripBody.depDate).getTime())) ; 
 
-                return (new Date(flight.arrTime).getTime() > new Date(tripBody.arrDate).getTime()) 
-                || (new Date(flight.depTime).getTime() < new Date(tripBody.depDate).getTime() ) }
+                return (new Date(flight.arrTime).getTime() < new Date(tripBody.arrDate).getTime()) && (new Date(flight.depTime).getTime() > new Date(tripBody.depDate).getTime() ) }
                 ) 
+          
                 
+                response.flights= flightDetail ;
+                resFlight = response ; 
+                console.log(response);
+
             } )
-                 return res.json({ result: data, message: 'Trip detail Found' });
+            return res.json({ result: resFlight, message: 'Trip detail Found' });
 
         })
         
