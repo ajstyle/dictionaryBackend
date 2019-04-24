@@ -112,7 +112,6 @@ function checkFileType(file,cb) {
     if(mimetype && extname) {
         return cb(null,true) ; 
     } else {
-
         cb('Error : Image Only') ;
     }
 }
@@ -143,6 +142,17 @@ function checkFileType(file,cb) {
    });
     })
 
+    router.get('/getWordsByAlphabet/:alphabet' , (req,res) => {
+        dictionary.find({ "word" :new RegExp('^'+req.params.alphabet+'.*', "i")},
+          function (err, docs) {
+            if (err) res.send(err);
+            if(docs.length == 0) 
+                 return res.json(  { words : docs ,  message: 'Word  Not found'   });
+            else
+            return res.json(  { words : docs ,  message: 'Word  found'   });
+
+   });
+    })
 
 
 
