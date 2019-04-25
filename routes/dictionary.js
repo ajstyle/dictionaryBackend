@@ -121,10 +121,14 @@ function checkFileType(file,cb) {
                 console.log(err)
                return res.status(501).json({error : err}) ;
             }else {
-                console.log(req.file) ; 
-                res.json({originalName : req.file.originalname , 
-                            uploadname : req.file.filename , 
-                              mimetype : req.file.mimetype });
+                if(req.file){
+                    res.json({originalName : req.file.originalname , 
+                        uploadname : req.file.filename , 
+                          mimetype : req.file.mimetype });
+                } else {
+                    return res.json({message : 'File not found'});
+                }
+                
             }   
         })
     })
@@ -132,6 +136,18 @@ function checkFileType(file,cb) {
 
     router.get('/getWord/:word' , (req,res) => {
         dictionary.find({ "word" : { $regex: req.params.word , $options: 'i' } },
+          function (err, docs) {
+            if (err) res.send(err);
+            if(docs.length == 0)
+                 return res.json(  { words : docs ,  message: 'Word  Not found'   });
+            else
+            return res.json(  { words : docs ,  message: 'Word  found'   });
+
+   });
+    })
+
+    router.get('/getBonnToWord/:wordMeaning' , (req,res) => {
+        dictionary.find({ "wordMeaning" : { $regex: req.params.wordMeaning , $options: 'i' } },
           function (err, docs) {
             if (err) res.send(err);
             if(docs.length == 0)
