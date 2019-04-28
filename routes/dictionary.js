@@ -187,7 +187,7 @@ router.put('/deleteAudio/:id' , (req,res) => {
 });
 })
 
-    router.delete('/getWord/:word' , (req,res) => {
+    router.get('/getWord/:word' , (req,res) => {
         dictionary.find({ "word" : { $regex: req.params.word , $options: 'i' } },
           function (err, docs) {
             if (err) res.send(err);
