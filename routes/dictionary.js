@@ -52,7 +52,6 @@ router.route('/dictionary/:id')
     })
     .put((req, res) => {
         console.log(req.body);
-
         dictionary.findByIdAndUpdate(req.params.id, {
             word: req.body.word,
             wordMeaning: req.body.wordMeaning , 
@@ -75,7 +74,7 @@ router.route('/dictionary/:id')
         dictionary.remove({ _id: req.params.id }, (err) => {
                 if (err) {
                     return res.send(err);
-                }
+                }   
             return res.json({ message: 'Word has been removed!' });
         });
     })
@@ -133,8 +132,62 @@ function checkFileType(file,cb) {
         })
     })
 
+//     dictionary.findById(req.params.id , (err,word)=>{
+//         try {
+//         fs.unlinkSync(__dirname + `/../public/uploads/${word.imageName}`);
+//         fs.unlinkSync(__dirname + `/../public/uploads/${word.audioName}`);
+//         }catch (err) {}
+//     dictionary.remove({ _id: req.params.id }, (err) => {
+//             if (err) {
+//                 return res.send(err);
+//             }
+//         return res.json({ message: 'Word has been removed!' });
+//     });
+// })
 
-    router.get('/getWord/:word' , (req,res) => {
+    router.put('/deleteImage/:id' , (req,res) => {
+        dictionary.findById(req.params.id , (err,word)=>{
+            try {
+                console.log( '=====' , word) ; 
+                fs.unlinkSync(__dirname + `/../public/uploads/${word.imageName}`);
+                console.log('Image File Deleted')
+                }catch (err) {
+                    return res.json({ error: err , message: 'Error for deleting file ' });
+                }
+        dictionary.update({_id : req.params.id }, {
+            $unset: {imageName:1} 
+        }, (err, data) => {
+            if (err) {
+                return res.send(err);
+            }
+            console.log("Put data", data);
+            return res.json({ message: 'Image Delete successfully' });
+        });
+    });
+})
+
+router.put('/deleteAudio/:id' , (req,res) => {
+    dictionary.findById(req.params.id , (err,word)=>{
+        try {
+            console.log( '=====' , word) ; 
+            fs.unlinkSync(__dirname + `/../public/uploads/${word.audioName}`);
+            console.log('Audio File Deleted')
+            }catch (err) {
+                return res.json({ error: err , message: 'Error for deleting file ' });
+            }
+    dictionary.update({_id : req.params.id }, {
+        $unset: {audioName:1} 
+    }, (err, data) => {
+        if (err) {
+            return res.send(err);
+        }
+        console.log("Put data", data);
+        return res.json({ message: 'Audio Delete successfully' });
+    });
+});
+})
+
+    router.delete('/getWord/:word' , (req,res) => {
         dictionary.find({ "word" : { $regex: req.params.word , $options: 'i' } },
           function (err, docs) {
             if (err) res.send(err);
@@ -145,6 +198,7 @@ function checkFileType(file,cb) {
 
    });
     })
+
 
     router.get('/getBonnToWord/:wordMeaning' , (req,res) => {
         dictionary.find({ "wordMeaning" : { $regex: req.params.wordMeaning , $options: 'i' } },
