@@ -132,6 +132,17 @@ function checkFileType(file,cb) {
         })
     })
 
+    router.post('/login' , (req,res) => {
+       let email = req.body.email ; 
+       let password = req.body.password ; 
+       console.log(email , password) ; 
+       if(email === 'friendsriver@gmail.com' && password === 'khalid1991') {
+        return res.json({statusCode : 200 ,  message: 'Login successful'  });
+       }else {
+        return res.json({statusCode : 401 ,  message: 'Unauthorized '  });
+
+       }
+    })
 //     dictionary.findById(req.params.id , (err,word)=>{
 //         try {
 //         fs.unlinkSync(__dirname + `/../public/uploads/${word.imageName}`);
