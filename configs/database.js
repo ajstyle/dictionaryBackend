@@ -3,8 +3,12 @@ var mongoose = require('mongoose');
 //Set up default mongoose connection
 
 //demo URL
-var mongoDB = 'mongodb://khalid:khalid@cluster0-shard-00-00-l1sec.mongodb.net:27017,cluster0-shard-00-01-l1sec.mongodb.net:27017,cluster0-shard-00-02-l1sec.mongodb.net:27017/dictionary?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true';
-mongoose.connect(mongoDB, { useMongoClient : true   });
+
+var uri = "mongodb://amitjain:amit1992@cluster0-shard-00-00-di9yd.mongodb.net:27017,cluster0-shard-00-01-di9yd.mongodb.net:27017,cluster0-shard-00-02-di9yd.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority"
+
+mongoose.connect(uri, { useMongoClient : true   }).then(x => {
+  console.log('Monngo Connected');
+});
 
 //Get the default connection
 var db = mongoose.connection;

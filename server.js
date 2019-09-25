@@ -5,8 +5,7 @@
 // dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
-const ejs = require('ejs') ; 
-const path = require('path') ; 
+
 
 
 require('./configs/database');
@@ -17,7 +16,6 @@ const app = express();
 app.set('view engine','ejs')
 console.log(__dirname) ; 
 // public folder 
-app.use('/images',express.static(__dirname +  '/public/uploads'))
 
 // configure the body-parser
 // to accept urlencoded bodies
@@ -27,20 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 // register all routers
 // all routes are prefixed with /api
-app.use('/api', require('./routes/dictionary'));
+app.use('/api', require('./routes/pizza'));
 
-
-// //set Storage Engine 
-// const storage  =    multer.diskStorage({
-//     destination : './public/uploads/' , 
-//     filename:function(req , file,cb) {
-//         cb(null ,file.fieldname+'-'+Date.now() + path.extname(file.originalname ));
-//     }
-// });
-// //Init Upload 
-// const upload = multer({
-//     storage : storage
-// }).single('myImage') ; 
 // set the port
 const port = parseInt(process.env.PORT, 10) || 8000;
 
