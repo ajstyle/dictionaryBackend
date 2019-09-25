@@ -33,10 +33,8 @@ router.route('/addPizza')
             let msg = {
                 to: req.body.email,
                 from: 'amitjain.lov@gmail.com',
-                subject: 'Hello world',
-                text: 'Hello plain world!',
-                html: '<p>Hello HTML     world!</p>',
-                templateId: 'd-1f46bfe8283a4fbdbec83711e5f1e422'
+                subject: 'Thanks for Order pizza ',
+                html: '<b>Your Pizza is on the way.Thanks for ordering Pizza  </b>',
             }
         
             console.log('message---',msg);
