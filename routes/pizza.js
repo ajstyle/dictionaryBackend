@@ -16,19 +16,21 @@ router.all("*", cors());
 
 router.route('/addPizza')
     .post((req, res) => {
-        console.log(req.body) 
+        console.log('body========',req.body) ;
+        
         const pizzaModel = new pizza({
             email: req.body.email,
             deliveryAddress: req.body.deliveryAddress , 
             deliveryDateTime : req.body.deliveryDateTime , 
             selectedPizza : req.body.selectedPizza
         });
+        console.log(pizzaModel)
         pizzaModel.save((err, data) => {
             if (err) {
                 return res.send(err);
             }
-
-            var msg = {
+            console.log(req.body);
+            let msg = {
                 to: req.body.email,
                 from: 'amitjain.lov@gmail.com',
                 subject: 'Hello world',

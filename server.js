@@ -20,8 +20,10 @@ console.log(__dirname) ;
 // configure the body-parser
 // to accept urlencoded bodies
 // and json data
-app.use(bodyParser.urlencoded({ extended: true }))
-    .use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+  app.use(bodyParser.json());
 
 // register all routers
 // all routes are prefixed with /api
