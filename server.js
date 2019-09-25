@@ -12,6 +12,7 @@ var cors = require('cors')
 require('./configs/database');
 // create the express app
 const app = express();
+app.use(cors());
 
 //EJS 
 app.set('view engine','ejs')
@@ -23,7 +24,6 @@ console.log(__dirname) ;
 // and json data
 app.use(bodyParser.urlencoded({ extended: true }))
     .use(bodyParser.json());
-    app.use(cors());
 
 // register all routers
 // all routes are prefixed with /api
