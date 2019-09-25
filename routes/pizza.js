@@ -38,7 +38,7 @@ router.route('/addPizza')
             console.log(req.body);
             let msg = {
                 to: req.body.email,
-                from: 'amitjain.lov@gmail.com',
+                from: 'siddharthpuri07.sp@gmail.com',
                 subject: 'Thanks for Order pizza ',
                 html: '<b>Your Pizza is on the way.Thanks for ordering Pizza  </b>',
             }
