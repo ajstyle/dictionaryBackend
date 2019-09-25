@@ -5,6 +5,7 @@
 // dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
+var cors = require('cors')
 
 
 
@@ -22,6 +23,7 @@ console.log(__dirname) ;
 // and json data
 app.use(bodyParser.urlencoded({ extended: true }))
     .use(bodyParser.json());
+    app.use(cors());
 
 // register all routers
 // all routes are prefixed with /api
