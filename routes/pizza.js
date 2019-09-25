@@ -21,7 +21,13 @@ router.route('/addPizza')
         const pizzaModel = new pizza({
             email: req.body.email,
             deliveryAddress: req.body.deliveryAddress , 
-            deliveryDateTime : req.body.deliveryDateTime , 
+            deliveryTime : req.body.deliveryTime , 
+            deliveryDate : req.body.deliveryDate , 
+            city : req.body.city , 
+            state : req.body.state , 
+            pinCode : req.body.pinCode , 
+            topping : req.body.toppings , 
+            total : req.body.total , 
             selectedPizza : req.body.selectedPizza
         });
         console.log(pizzaModel)
