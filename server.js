@@ -10,10 +10,8 @@ var cors = require('cors')
 
 
 require('./configs/database');
-// create the express app
 const app = express();
 app.use(cors());
-
 //EJS 
 app.set('view engine','ejs')
 console.log(__dirname) ; 

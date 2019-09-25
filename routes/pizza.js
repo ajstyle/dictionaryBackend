@@ -27,7 +27,7 @@ router.route('/addPizza')
             if (err) {
                 return res.send(err);
             }
-                 res.end().json({ result: data, message: 'pizza Added' });
+                 res.json({ result: data, message: 'pizza Added' });
         });
 
     });
