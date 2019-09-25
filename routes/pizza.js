@@ -27,26 +27,26 @@ router.route('/addPizza')
             if (err) {
                 return res.send(err);
             }
-                 res.json({ result: data, message: 'pizza Added' });
+
+            var msg = {
+                to: req.body.email,
+                from: 'amitjain.lov@gmail.com',
+                subject: 'Hello world',
+                text: 'Hello plain world!',
+                html: '<p>Hello HTML     world!</p>',
+                templateId: 'd-1f46bfe8283a4fbdbec83711e5f1e422'
+            }
+        
+            console.log('message---',msg);
+            sgMail.send(msg);
+         res.json({ result: data, message: 'pizza Added' });
         });
 
     });
 
 
     router.route('/emailReceipt').post((req,res) => {
-        var receiptData = req.body;
-        console.log('receiptData====',receiptData);
-        var msg = {
-            to: receiptData.email,
-            from: 'amitjain.lov@gmail.com',
-            subject: 'Hello world',
-            text: 'Hello plain world!',
-            html: '<p>Hello HTML     world!</p>',
-            templateId: 'd-1f46bfe8283a4fbdbec83711e5f1e422'
-        }
-    
-        console.log('message---',msg);
-        sgMail.send(msg);
+      
     });
 
      
