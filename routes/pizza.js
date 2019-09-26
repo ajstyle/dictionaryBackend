@@ -7,7 +7,7 @@ const cors = require('cors');
 const pizza = require('../models/pizza');
 const sgMail = require('@sendgrid/mail');
 
-sgMail.setApiKey('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');
+sgMail.setApiKey('SG.1YNRS_zTTfSbeDORQKoFIQ.ZQuMibtRWuQT_aDY4CSKr6rU6-PCR-0F4ed6YoRRKnU');
 const router = express.Router();
 var app = express()
 
